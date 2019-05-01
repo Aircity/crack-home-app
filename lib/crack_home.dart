@@ -137,7 +137,7 @@ class _CrackHomeState extends State<CrackHome>
                 text: '夹',
               ),
               Tab(
-                text: '逢',
+                text: '缝',
               )
             ],
           ),
