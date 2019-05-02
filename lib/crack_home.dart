@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Column pageHuang() {
+Widget pageHuang() {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
@@ -56,7 +56,7 @@ Column pageHuang() {
   );
 }
 
-Column pageHun() {
+Widget pageHun() {
   return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
     Text(
       '步余馬於蘭皋兮 馳椒丘且焉止息',
@@ -91,6 +91,22 @@ Column pageHun() {
   ]);
 }
 
+Widget helper() {
+  return Card(
+      color: Colors.white,
+      elevation: 4.0,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: ListTile(
+        title: pageHuang(),
+      ));
+}
+
+Widget pageViewBuilder(int current) {
+  return pages[current];
+}
+
+List<Widget> pages = List<Widget>();
+
 class CrackHome extends StatefulWidget {
   @override
   _CrackHomeState createState() => new _CrackHomeState();
@@ -99,12 +115,24 @@ class CrackHome extends StatefulWidget {
 class _CrackHomeState extends State<CrackHome>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-
+  int _current;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    pages.add(pageHuang());
+    pages.add(pageHun());
+    pages.add(helper());
+    pages.add(pageHuang());
+    _current = 0;
     _tabController = new TabController(vsync: this, initialIndex: 1, length: 4);
+  }
+
+  void _pushSaved(int index) {
+    if (_current != index) {
+      setState(() {
+        _current = index;
+      });
+    }
   }
 
   @override
@@ -124,32 +152,44 @@ class _CrackHomeState extends State<CrackHome>
               onPressed: null,
             )
           ],
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: <Widget>[
-              Tab(
-                text: '黄',
-              ),
-              Tab(
-                text: '昏',
-              ),
-              Tab(
-                text: '夹',
-              ),
-              Tab(
-                text: '缝',
-              )
-            ],
-          ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: <Widget>[
-            pageHuang(),
-            pageHun(),
-            pageHuang(),
-            pageHun(),
+        bottomNavigationBar: BottomNavigationBar(
+          // fixedColor: const Color(0xff075E54),
+          currentIndex: _current,
+          onTap: _pushSaved,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Container(
+                  padding: EdgeInsets.only(top: 4),
+                  child: Text('风'),
+                ),
+                backgroundColor: const Color(0xff075E54)),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.new_releases),
+              title: Container(
+                padding: EdgeInsets.only(top: 4),
+                child: Text('花'),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              title: Container(
+                padding: EdgeInsets.only(top: 4),
+                child: Text('雪'),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.more),
+              title: Container(
+                padding: EdgeInsets.only(top: 4),
+                child: Text('月'),
+              ),
+            ),
           ],
+        ),
+        body: Center(
+          child: pageViewBuilder(_current),
         ));
   }
 }
