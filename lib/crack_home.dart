@@ -162,28 +162,28 @@ class _CrackHomeState extends State<CrackHome>
                 icon: Icon(Icons.home),
                 title: Container(
                   padding: EdgeInsets.only(top: 4),
-                  child: Text('风'),
+                  child: Text('养心殿'),
                 ),
                 backgroundColor: const Color(0xff075E54)),
             BottomNavigationBarItem(
               icon: Icon(Icons.new_releases),
               title: Container(
                 padding: EdgeInsets.only(top: 4),
-                child: Text('花'),
+                child: Text('迎宾阁'),
               ),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.group),
               title: Container(
                 padding: EdgeInsets.only(top: 4),
-                child: Text('雪'),
+                child: Text('议事堂'),
               ),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.more),
               title: Container(
                 padding: EdgeInsets.only(top: 4),
-                child: Text('月'),
+                child: Text('登闻鼓'),
               ),
             ),
           ],
